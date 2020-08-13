@@ -19,6 +19,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import React, { Component } from 'react';
+import { MDBContainer } from 'mdbreact';
 
 
 class Index extends Component {
@@ -105,12 +106,13 @@ const json = JSON.stringify(list);
     reader.readAsText(e.target.files[0])
 
   } 
+  
 render () {
     let excel;
 
     if(this.state.filesDepurado[0]){
-      console.log("object",this.state.filesDepurado)
     excel = <div>
+      <MDBContainer style={{width:1700,heigth:1000}}>
        <GridToolbar>
                  <button
                      title="Export Excel"
@@ -120,66 +122,49 @@ render () {
                      Exportar Excel
              </button>
              </GridToolbar>
-              <GridColumn field="Department" title="Department"  />
-             <GridColumn field="Operator" title="Operator" />
-             <GridColumn field="Visitor" title="Visitor" />
-             <GridColumn field="Duration" title="Duration" />
-             <GridColumn field="Rating" title="Rating" />
-             <GridColumn field="Chat_ID" title="Chat_ID" />
-             <GridColumn field="Empresa" title="Empresa" />
-             <GridColumn field="Telefono" title="Telefono" /> 
-            {this.state.filesDepurado.map(rows=>{
-             
-              
-            return(
-            <ExcelExport data={rows} ref={exporter => this._export = exporter}>
-            <TableContainer component={Paper}>
-              
-     <Table  aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="right">Department</TableCell>
-            <TableCell align="right">Operator</TableCell>
-            <TableCell align="right">Visitor</TableCell>
-            <TableCell align="right">Duration</TableCell>
-            <TableCell align="right">Rating</TableCell>
-            <TableCell align="right">Chat_ID</TableCell>
-            <TableCell align="right">Empresa</TableCell>
-            <TableCell align="right">Telefono</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {this.state.filesDepurado.map((rows) => (
-               
-            <TableRow key={rows[0].Department}>
-             <TableCell omponent="th" scope="row">
-             {rows[0].Department}
-               </TableCell>
-              <TableCell >{rows[0].Department}</TableCell>
-              <TableCell >{rows[0].Operator}</TableCell>
-              <TableCell >{rows[0].Visitor}</TableCell>
-              <TableCell >{rows[0].Duration}</TableCell>
-              <TableCell>{rows[0].Rating}</TableCell>
-              <TableCell >{rows[0].Chat_ID}</TableCell>
-              <TableCell >{rows[0].Empresa}</TableCell>
-              <TableCell >{rows[0].Telefono}</TableCell>
-            </TableRow>
-          ))
-          } 
-        </TableBody> 
-      </Table>
-    </TableContainer>  
-              </ExcelExport> 
-              )
-            })}
+            <TableContainer component={Paper}>          
+            <Table  aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="left">Department</TableCell>
+                    <TableCell align="left">Operator</TableCell>
+                    <TableCell align="left">Visitor</TableCell>
+                    <TableCell align="left">Duration</TableCell>
+                    <TableCell align="left">Empresa</TableCell>
+                    <TableCell align="left">Telefono</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {this.state.filesDepurado.map(rows => {
+                      return( 
+                     <ExcelExport data={rows} ref={exporter => this._export = exporter}>
+                    <TableRow>
+                    <TableCell omponent="th" scope="row">
+                    {rows[0].Department}
+                      </TableCell>
+                      <TableCell >{rows[0].Operator}</TableCell>
+                      <TableCell >{rows[0].Visitor}</TableCell>
+                      <TableCell >{rows[0].Duration}</TableCell>
+                      <TableCell >{rows[0].Empresa}</TableCell>
+                      <TableCell >{rows[0].Telefono}</TableCell>
+                    </TableRow>
+                    </ExcelExport> 
+
+                      )
+                  })
+                  } 
+                </TableBody> 
+              </Table>
+             </TableContainer>  
+             </MDBContainer>      
      </div>   
   }
   
     return (
       <React.Fragment>
-           <div>
+           {/* <div>
          <input type="file"  accept =".txt"  onChange={(e) => this.showFile(e)} />
-            </div>
+            </div> */}
              {/* <div> 
             <Button
             variant="contained"
@@ -194,7 +179,21 @@ render () {
              </Button> 
        </div> 
        */}
-          
+      <Button
+          style={{margin:40}}
+          variant="outlined"
+          color="secondary"
+          component="label"
+          startIcon={<CloudUploadIcon />}
+
+        >
+          Cargar .txt
+          <input
+            type="file"
+            style={{ display: "none" }}
+            accept =".txt"  onChange={(e) => this.showFile(e)}
+          />
+        </Button>
            {excel}
       </React.Fragment>
     )
