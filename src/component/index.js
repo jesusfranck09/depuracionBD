@@ -40,6 +40,7 @@ class Index extends Component {
   showFile = async (e) => {
    e.preventDefault()
     let json1=[]
+    let nombre= []
 
     const reader = new FileReader()
      reader.onload = async (e) => { 
@@ -90,11 +91,17 @@ var list={
    "Chat_ID":splitTxt5[1],
    "Empresa":splitTxt6[1],
    "Telefono":splitTxt7[1]
-     
+   
    })
 const json = JSON.stringify(list);
  var obj = JSON.parse(json);
  json1.push(obj.datos)
+
+console.log("que tiene ",obj)
+
+nombre=obj.datos[0].Visitor.lastIndexOf("< ")
+console.log("esto es nombre",nombre)
+
 
 }
     this.setState({filesDepurado:json1})
@@ -109,10 +116,12 @@ const json = JSON.stringify(list);
   
 render () {
     let excel;
+     
 
     if(this.state.filesDepurado[0]){
     excel = <div>
       <MDBContainer style={{width:1700,heigth:1000}}>
+     
        <GridToolbar>
                  <button
                      title="Export Excel"
@@ -137,9 +146,9 @@ render () {
                 <TableBody>
                   {this.state.filesDepurado.map(rows => {
                       return( 
-                     <ExcelExport data={rows} ref={exporter => this._export = exporter}>
+                     <ExcelExport data={rows} ref={(exporter) => this._export = exporter}>
                     <TableRow>
-                    <TableCell omponent="th" scope="row">
+                  <TableCell component="th" scope="row">
                     {rows[0].Department}
                       </TableCell>
                       <TableCell >{rows[0].Operator}</TableCell>
@@ -155,8 +164,10 @@ render () {
                   } 
                 </TableBody> 
               </Table>
-             </TableContainer>  
-             </MDBContainer>      
+             </TableContainer>
+              
+             </MDBContainer>   
+             
      </div>   
   }
   
@@ -182,16 +193,18 @@ render () {
       <Button
           style={{margin:40}}
           variant="outlined"
-          color="secondary"
+          color="primary"
           component="label"
+          accept =".txt"
           startIcon={<CloudUploadIcon />}
 
         >
           Cargar .txt
           <input
             type="file"
+            accept =".txt"
             style={{ display: "none" }}
-            accept =".txt"  onChange={(e) => this.showFile(e)}
+              onChange={(e) => this.showFile(e)}
           />
         </Button>
            {excel}
