@@ -147,13 +147,14 @@ json1.push(obj.datos)
     reader.readAsText(e.target.files[0])
 
   } 
-  
 render () {
     let excel;
+     
 
     if(this.state.filesDepurado[0]){
     excel = <div>
       <MDBContainer style={{width:1700,heigth:1000}}>
+     
        <GridToolbar>
                  <button
                      title="Export Excel"
@@ -178,9 +179,9 @@ render () {
                 <TableBody>
                   {this.state.filesDepurado.map(rows => {
                       return( 
-                     <ExcelExport data={rows} ref={exporter => this._export = exporter}>
+                     <ExcelExport data={rows} ref={(exporter) => this._export = exporter}>
                     <TableRow>
-                    <TableCell omponent="th" scope="row">
+                  <TableCell component="th" scope="row">
                     {rows[0].Department}
                       </TableCell>
                       <TableCell >{rows[0].Operator}</TableCell>
@@ -196,8 +197,10 @@ render () {
                   } 
                 </TableBody> 
               </Table>
-             </TableContainer>  
-             </MDBContainer>      
+             </TableContainer>
+              
+             </MDBContainer>   
+             
      </div>   
   }
   
@@ -223,16 +226,18 @@ render () {
       <Button
           style={{margin:40}}
           variant="outlined"
-          color="secondary"
+          color="primary"
           component="label"
+          accept =".txt"
           startIcon={<CloudUploadIcon />}
 
         >
           Cargar .txt
           <input
             type="file"
+            accept =".txt"
             style={{ display: "none" }}
-            accept =".txt"  onChange={(e) => this.showFile(e)}
+              onChange={(e) => this.showFile(e)}
           />
         </Button>
            {excel}
