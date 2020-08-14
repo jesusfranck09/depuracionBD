@@ -28,7 +28,8 @@ class Index extends Component {
     super(props);
     this.state={
         files:[],
-        filesDepurado:[]
+        filesDepurado:[],
+        nombreVisitor:[]
     }
    
     }
@@ -40,6 +41,10 @@ class Index extends Component {
   showFile = async (e) => {
    e.preventDefault()
     let json1=[]
+    let nombre=[]
+    let variable=[]
+    let substring=[]
+
 
     const reader = new FileReader()
      reader.onload = async (e) => { 
@@ -78,6 +83,7 @@ let arrayConcat = []
             var splitTxt5 = rows[5].split(':')
             var splitTxt6 = rows[6].split(':')
             var splitTxt7 = rows[7].split(':')
+           
 var list={
   'datos':[]
 }
@@ -93,12 +99,47 @@ var list={
      
    })
 const json = JSON.stringify(list);
- var obj = JSON.parse(json);
- json1.push(obj.datos)
+var obj = JSON.parse(json);
+// var elements= '<'
+// nombre=obj.datos[0]..split('<')
+//console.log("esto es nombre",splitTxt2)
 
+//console.log("esto es nombre de split",nombre[0])
+//onsole.log("esto es splitext de nombre",nombre )
+//nombre = splitTxt2[1].split('<')
+// variable= nombre[0]
+// console.log("esto es varaiable de nombre ",variable)
+
+// substring.push(variable)
+variable.push(obj.datos[0].Visitor.split('<'))
+nombre= variable
+variable.map(rows=>{
+  var subtring= rows[0]
+  var subtring2= rows[1].replace('>','')
+  // console.log("esto es es subtring de nombre de rows",subtring)
+  // console.log("esto es es subtring2 de nombre de rows",subtring2)
+  var list2={
+    'datos':[]
+  }
+     list.datos.push({
+     "nombre":subtring,
+     "correo":subtring2,
+  })
+  
+  const json2 = JSON.stringify(list);
+  var obj2 = JSON.parse(json2);
+  console.log("que contien este json1",obj2)
+  
+})
+
+
+// console.log("estos es púsh de variable", nombre)
+json1.push(obj.datos)
 }
     this.setState({filesDepurado:json1})
    // console.log("json1" , this.state.filesDepurado)
+
+  //  this.setState({nombreVisitor:substring})
 
 })
 
