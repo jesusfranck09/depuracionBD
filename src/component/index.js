@@ -1,6 +1,5 @@
-
 //import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
-import { Grid, GridColumn, GridToolbar } from '@progress/kendo-react-grid';
+import { Grid, GridColumn, GridToolbar, GridCell } from '@progress/kendo-react-grid';
 import { ExcelExport } from '@progress/kendo-react-excel-export';
 
 //import { MDBBtn } from "mdbreact"
@@ -35,16 +34,13 @@ class Index extends Component {
     }
     _export;
     export = () => {
-        this._export.save();
+        this._export.save()
     }
-
+   
+     
   showFile = async (e) => {
    e.preventDefault()
     let json1=[]
-    let nombre=[]
-    let variable=[]
-    let substring=[]
-
 
     const reader = new FileReader()
      reader.onload = async (e) => { 
@@ -65,22 +61,20 @@ class Index extends Component {
     let filtro  = []
     
     arrayFilter.map(rows=>{
-      filtro.push([rows[1],rows[2],rows[3],rows[4],rows[5],rows[6],rows[7],rows[8]])
-     // console.log("filtro",filtro)
+     filtro.push([rows[1],rows[2],rows[3],rows[4],rows[5],rows[6],rows[7],rows[8]])
+     
+      //console.log("filtro",filtro)
     })
-    // console.log("esto es filtro",filtro)
-    // console.log("esto es busqueda",busqueda) 
 
-let arrayConcat = []
 
  await filtro.map(rows=> {
     if(rows[1] &&  rows[7]){
-            var splitTxt = rows[0].split(':')
-            var splitTxt1 = rows[1].split(':')
+            // var splitTxt = rows[0].split(':')
+            // var splitTxt1 = rows[1].split(':')
+            // var splitTxt3 = rows[3].split(':')
+            // var splitTxt4 = rows[4].split(':')
+            // var splitTxt5 = rows[5].split(':')
             var splitTxt2 = rows[2].split(':')
-            var splitTxt3 = rows[3].split(':')
-            var splitTxt4 = rows[4].split(':')
-            var splitTxt5 = rows[5].split(':')
             var splitTxt6 = rows[6].split(':')
             var splitTxt7 = rows[7].split(':')
            
@@ -88,64 +82,25 @@ var list={
   'datos':[]
 }
    list.datos.push({
-   "Department":splitTxt[1],
-   "Operator":splitTxt1[1],
+ //  "Department":splitTxt[1],
+ // "Operator":splitTxt1[1],
+ // "Visitor":splitTxt2[1],
+ // "Duration":splitTxt3[1],
+ // "Rating":splitTxt4[1],
+ // "Chat_ID":splitTxt5[1],
    "Visitor":splitTxt2[1],
-   "Duration":splitTxt3[1],
-   "Rating":splitTxt4[1],
-   "Chat_ID":splitTxt5[1],
    "Empresa":splitTxt6[1],
    "Telefono":splitTxt7[1]
      
    })
 const json = JSON.stringify(list);
 var obj = JSON.parse(json);
-// var elements= '<'
-// nombre=obj.datos[0]..split('<')
-//console.log("esto es nombre",splitTxt2)
-
-//console.log("esto es nombre de split",nombre[0])
-//onsole.log("esto es splitext de nombre",nombre )
-//nombre = splitTxt2[1].split('<')
-// variable= nombre[0]
-// console.log("esto es varaiable de nombre ",variable)
-
-// substring.push(variable)
-variable.push(obj.datos[0].Visitor.split('<'))
-nombre= variable
-variable.map(rows=>{
-  var subtring= rows[0]
-  var subtring2= rows[1].replace('>','')
-  // console.log("esto es es subtring de nombre de rows",subtring)
-  // console.log("esto es es subtring2 de nombre de rows",subtring2)
-  var list2={
-    'datos':[]
-  }
-     list.datos.push({
-     "nombre":subtring,
-     "correo":subtring2,
-  })
-  
-  const json2 = JSON.stringify(list);
-  var obj2 = JSON.parse(json2);
-  console.log("que contien este json1",obj2)
-  
-})
-
-
-// console.log("estos es púsh de variable", nombre)
 json1.push(obj.datos)
 }
     this.setState({filesDepurado:json1})
-   // console.log("json1" , this.state.filesDepurado)
-
-  //  this.setState({nombreVisitor:substring})
-
 })
-
 };
     reader.readAsText(e.target.files[0])
-
   } 
 render () {
     let excel;
@@ -154,42 +109,63 @@ render () {
     if(this.state.filesDepurado[0]){
     excel = <div>
       <MDBContainer style={{width:1700,heigth:1000}}>
-     
-       <GridToolbar>
-                 <button
-                     title="Export Excel"
-                     className="k-button k-primary"
-                     onClick={this.export}
-                 >
-                     Exportar Excel
-             </button>
-             </GridToolbar>
+            
+        <GridToolbar>
+                        <button
+                            title="Export Excel"
+                            className="k-button k-primary"
+                            onClick={this.export}
+                        >
+                            Exportar Excel
+                    </button>
+                    
+                    </GridToolbar>
+
             <TableContainer component={Paper}>          
             <Table  aria-label="simple table">
-                <TableHead>
+         
+            <TableHead>
                   <TableRow>
-                    <TableCell align="left">Department</TableCell>
-                    <TableCell align="left">Operator</TableCell>
-                    <TableCell align="left">Visitor</TableCell>
-                    <TableCell align="left">Duration</TableCell>
-                    <TableCell align="left">Empresa</TableCell>
-                    <TableCell align="left">Telefono</TableCell>
+                     <TableCell>Correo</TableCell>
+                    <TableCell>Nombre</TableCell>
+                   <TableCell>Empresa</TableCell>
+                    <TableCell>Telefono</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
+                
                   {this.state.filesDepurado.map(rows => {
+                      let caracter_menor=rows[0].Visitor.indexOf('<')
+                      let nombre_visitor=rows[0].Visitor
+                      let subtring_nombre=rows[0].Visitor.substring(caracter_menor,nombre_visitor)
+                     // console.log("esto es subtring de nombre",subtring_nombre)
+                                            
+                      let menor= rows[0].Visitor.indexOf('<')
+                      let mayor = rows[0].Visitor.indexOf('>')
+                      let subtring_correo=rows[0].Visitor.substring(menor,mayor)
+                      let sbstrg=subtring_correo.substring(1)
+                      console.log("estos es subtring_correo",sbstrg)
+                      //if(sbstrg && subtring_nombre && rows[0].Empresa && rows[0].Telefono)
                       return( 
+                        
+
+
                      <ExcelExport data={rows} ref={(exporter) => this._export = exporter}>
-                    <TableRow>
-                  <TableCell component="th" scope="row">
-                    {rows[0].Department}
-                      </TableCell>
-                      <TableCell >{rows[0].Operator}</TableCell>
-                      <TableCell >{rows[0].Visitor}</TableCell>
-                      <TableCell >{rows[0].Duration}</TableCell>
-                      <TableCell >{rows[0].Empresa}</TableCell>
-                      <TableCell >{rows[0].Telefono}</TableCell>
-                    </TableRow>
+                  
+                  <GridColumn field="correo" />
+            <GridColumn field="nombre" />
+            <GridColumn field="empresa" />
+            <GridColumn field="telefono" />
+            <GridToolbar field= {sbstrg} />
+        
+                    <TableRow >
+                      <TableCell component="th" scope="row"> {sbstrg} </TableCell>
+                      <TableCell  >{subtring_nombre}</TableCell>
+                      <TableCell  >{rows[0].Empresa}</TableCell>
+                      <TableCell  >{rows[0].Telefono}</TableCell>
+                     
+                    </TableRow> 
+                   
                     </ExcelExport> 
 
                       )
@@ -198,7 +174,7 @@ render () {
                 </TableBody> 
               </Table>
              </TableContainer>
-              
+             
              </MDBContainer>   
              
      </div>   
@@ -206,6 +182,8 @@ render () {
   
     return (
       <React.Fragment>
+
+
            {/* <div>
          <input type="file"  accept =".txt"  onChange={(e) => this.showFile(e)} />
             </div> */}
@@ -240,6 +218,7 @@ render () {
               onChange={(e) => this.showFile(e)}
           />
         </Button>
+
            {excel}
       </React.Fragment>
     )
