@@ -21,15 +21,8 @@ class Index extends Component {
         spinner:false,
         modal12: false
    }
-   this.export= this.export.bind(this)
- //  this.toggle = this.toggle.bind(this)
+   this.export= this.export.bind(this) 
        }
-
-       _exporter;
-       export = () => {
-           this._exporter.save();
-       }
-
        getMuiTheme = () => createMuiTheme({
         overrides: {
           MUIDataTableBodyCell: {
@@ -86,10 +79,7 @@ class Index extends Component {
   await filtro.map(rows=> {
       if(rows[1] &&  rows[7]){
               var splitTxt = rows[0].split(':')
-        //    var splitTxt1 = rows[1].split(':') //operador
-              var splitTxt2 = rows[2].split(':') //visitor
-        //    var splitTxt3 = rows[3].split(':') //duration
-        //    var splitTxt4 = rows[4].split(':') //rating
+              var splitTxt2 = rows[2].split(':')     
               var splitTxt5 = rows[5].split(':')
               var splitTxt6 = rows[6].split(':')
               var splitTxt7 = rows[7].split(':')
@@ -98,11 +88,8 @@ class Index extends Component {
           'datos':[]
         }
           list.datos.push({
-                "Department":splitTxt[1],
-            // "Operator":splitTxt1[1],  
+                "Department":splitTxt[1],  
                 "Visitor":splitTxt2[1],
-            // "Duration":splitTxt3[1],
-            // "Rating":splitTxt4[1],
                 "Chat_ID":splitTxt5[1],
                 "Empresa":splitTxt6[1],
                 "Telefono":splitTxt7[1],
@@ -150,7 +137,6 @@ render() {
           </MDBModalFooter>
         </MDBModal>
       </MDBContainer>
-   //    console.log("esto contien rows",rows)
         let caracter_menor=rows[0].Visitor.indexOf('<')
         let nombre_visitor=rows[0].Visitor
         let substring_nombre=rows[0].Visitor.substring(caracter_menor,nombre_visitor)
@@ -166,7 +152,7 @@ render() {
         let empresa3=empresa2.replace("á", "a")
         let Telefono=rows[0].Telefono.slice(0, 11)
        console.log("esto es caracteres especiales ",caracteres_especiales)
- return([caracteres_especiales,substring_nombre,substrig,rows[0].Chat_ID,Empresa,Telefono,boton])  
+ return([caracteres_especiales,substring_nombre,substrig,rows[0].Chat_ID,empresa3,Telefono,boton])  
   })
 
  let contador=[]
@@ -185,20 +171,7 @@ render() {
       <span class="sr-only">Loading...</span>
     </div>
       } 
-      
-
-//       let exportar= <div><button  onClick={ this.export}>Export to Excel</button> 
-//  <ExcelExport
-//  columns={columns}
-//           data={data}
-//           fileName="Products.xlsx"
-//           ref={(exporter) => { this._exporter = exporter; }}
-//       >
-            
-//       </ExcelExport>
-//       </div>
-
-     const options={ 
+         const options={ 
       
       filterType:"drowpdawn",
       responsive: "stacked",
@@ -272,21 +245,6 @@ render() {
           </MuiThemeProvider>      
         </div>            
       {modal}
-
-      {/* <div>  
-                                        <ReactHTMLTableToExcel  
-                                                className="btn btn-info"  
-                                                //table="emp"  
-                                               filename="ReportExcel"  
-                                               sheet="Sheet"  
-                                                buttonText="Export excel" />  
-                                </div>   */}
-
-    
-     
-            
-
-
       </React.Fragment>  
     )  
   }
