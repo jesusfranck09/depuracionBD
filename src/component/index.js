@@ -161,11 +161,11 @@ render() {
         let substrig=substring_correo.substring(1)
 
         let caracteres_especiales=rows[0].Department.replace("ó", "o")
-        let Empresa=rows[0].Empresa.replace("e", "e")
+        let Empresa=rows[0].Empresa.replace("é", "e")
         let empresa2=Empresa.replace("ñ", "n")
         let empresa3=empresa2.replace("á", "a")
         let Telefono=rows[0].Telefono.slice(0, 11)
-     //  console.log("esto es caracteres especiales ",caracteres_especiales)
+       console.log("esto es caracteres especiales ",caracteres_especiales)
  return([caracteres_especiales,substring_nombre,substrig,rows[0].Chat_ID,Empresa,Telefono,boton])  
   })
 
