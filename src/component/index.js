@@ -48,7 +48,7 @@ class Index extends Component {
     const reader = new FileReader()
     reader.onload = async (e) => { 
     const text = (e.target.result)  
-    var splitText=text.split('*')
+    let splitText=text.split('*')
     let spelit= text.split("\n").join("")
     let filter= spelit.split("\-").join("")
     let busqueda =filter.split("Created")
@@ -56,8 +56,7 @@ class Index extends Component {
 
       busqueda.map(rows=>{
         arrayFilter.push(rows.split('*'))
-      })
-    
+      })    
       let filtro  = []
         arrayFilter.map(rows=>{
         filtro.push([rows[1],rows[2],rows[3],rows[4],rows[5],rows[6],rows[7],rows[8],rows[9]])
@@ -156,8 +155,7 @@ render() {
       <span class="sr-only">Loading...</span>
     </div>
       } 
-         const options={ 
-      
+         const options={       
       filterType:"drowpdawn",
       responsive: "stacked",
       rowHover:"true",
@@ -193,10 +191,8 @@ render() {
           text: "fila (s) seleccionadas",
           delete: "Eliminar",
           deleteAria: "Eliminar filas seleccionadas",
-        },
-       
-      }
-     
+        },       
+      }     
       } 
      
    return (
