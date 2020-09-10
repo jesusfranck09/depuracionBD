@@ -7,10 +7,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Button from '@material-ui/core/Button';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';  
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-//import ReactExport from "react-export-excel";
-
 import { ExcelExport, ExcelExportColumn } from '@progress/kendo-react-excel-export';
-// import ExportToExcel from "./ExportToExcel"
 import {MDBContainer,MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter} from 'mdbreact'
 
 class Index extends Component {
@@ -28,28 +25,17 @@ class Index extends Component {
           MUIDataTableBodyCell: {
               root: {              
               fontFamily : 'arial' ,
-              fontSize: '14px',  
-             
-              textAlign:"center"
-
+              fontSize: '14px',               
+              textAlign:"center",
             },          
           },
           MUIDataTableHeadCell: {
             root: {         
               fontSize: '16px',
-              textAlign:"center"
+              textAlign:"center",
             }
           },
-          paperResponsiveScrollFullHeightFullWidth: {
-            position: 'absolute',
-          },
-          responsiveBase: {
-            overflow: 'auto',
-            '@media print': {
-              height: 'auto !important',
-            },
-          },  
-          
+                           
         }
         })
     abrirModal=()=>{
@@ -118,8 +104,6 @@ class Index extends Component {
       }
    
 render() {
-
-
   let modal;
   const columns = [ "Departamento","Cliente","Correo Cliente","Chat_ID","Empresa","Telefono",{name:"Chat", options:{filter: false, sort:false,download:false}}]; 
   const  data=this.state.filesDepurado.map((rows,i)=>{
@@ -150,9 +134,10 @@ render() {
         let Empresa=rows[0].Empresa.replace("é", "e")
         let empresa2=Empresa.replace("ñ", "n")
         let empresa3=empresa2.replace("á", "a")
+        let empresa4=empresa3.replace("ú", "u")
         let Telefono=rows[0].Telefono.slice(0, 11)
        console.log("esto es caracteres especiales ",caracteres_especiales)
- return([caracteres_especiales,substring_nombre,substrig,rows[0].Chat_ID,empresa3,Telefono,boton])  
+ return([caracteres_especiales,substring_nombre,substrig,rows[0].Chat_ID,empresa4,Telefono,boton])  
   })
 
  let contador=[]
