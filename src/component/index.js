@@ -5,7 +5,7 @@ import MUIDataTable from "mui-datatables";
 import React, { Component } from 'react';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Button from '@material-ui/core/Button';
-import ReactHTMLTableToExcel from 'react-html-table-to-excel';  
+ 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { ExcelExport, ExcelExportColumn } from '@progress/kendo-react-excel-export';
 import {MDBContainer,MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter} from 'mdbreact'
@@ -18,7 +18,7 @@ class Index extends Component {
         spinner:false,
         modal12: false
    }
-   this.export= this.export.bind(this) 
+  
        }
        getMuiTheme = () => createMuiTheme({
         overrides: {
